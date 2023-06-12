@@ -77,7 +77,7 @@ module.exports.getStudentByNum = function (num) {
         }
 
         if (!foundStudent) {
-            reject("query returned 0 results"); return;
+            reject("no results returned"); return;
         }
 
         resolve(foundStudent);
@@ -95,7 +95,7 @@ module.exports.getStudentsByCourse = function (course) {
         }
 
         if (filteredStudents.length == 0) {
-            reject("query returned 0 results"); return;
+            reject("no results returned"); return;
         }
 
         resolve(filteredStudents);
