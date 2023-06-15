@@ -1,3 +1,12 @@
+/*********************************************************************************
+*  WEB700 – Assignment 03
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part 
+*  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: ___Chum Sze Yin____ Student ID: __118496223___ Date: ___14 Jun 2023____
+*
+********************************************************************************/ 
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
 var app = express();
@@ -82,7 +91,6 @@ collegeData.initialize()
          })
     });
 
-//app.use(express.static("./views"))
     //http://localhost:8080 -- Return home.html
     app.get("/", (req, res) => {
         res.sendFile(__dirname+'/views/home.html')
