@@ -92,7 +92,7 @@ collegeData.initialize()
     app.get("/about", (req, res) => {
       res.sendFile(__dirname+'/views/about.html')
   });
-    //http://localhost:8080/about -- Return htmlDemo.html
+    //http://localhost:8080/htmlDemo -- Return htmlDemo.html
     app.get("/htmlDemo", (req, res) => {
       res.sendFile(__dirname +'/views/htmlDemo.html')
   });
