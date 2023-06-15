@@ -80,10 +80,10 @@ collegeData.initialize()
     app.get("/student/:num", (req, res) => {
       
         collegeData.getStudentByNum(req.params.num)
-         .then(function(studentByNum){         //resolve promise of getStudentsByNumber()
+         .then(function(studentByNum){         //resolve promise of getStudentsByNum()
            res.send(studentByNum)
          })
-         .catch(function(err){       //reject promise of getStudentsByNumber()
+         .catch(function(err){       //reject promise of getStudentsByNum()
            var msg = {
              message: "no result"
            }
