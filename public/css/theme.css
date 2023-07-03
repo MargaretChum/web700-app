@@ -1,0 +1,13 @@
+html body{
+    background-color: pink;
+}
+
+h1{
+    color: darkcyan;
+}
+
+@import url(https://kinsta.com/blog/web-safe-fonts);
+h1{
+    font-family:"Copperplate Gothic";
+    text-align:center
+}
