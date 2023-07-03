@@ -15,9 +15,9 @@ var collegeData = require("./modules/collegeData.js")
 collegeData.initialize()
   .then(                          //resolve promise of initialize()
     function(){
-    // setup http server to listen on HTTP_PORT
-    app.listen(HTTP_PORT, ()=> {console.log("server listening on port:" + HTTP_PORT)});
     app.use(express.static('public'));
+      // setup http server to listen on HTTP_PORT
+    app.listen(HTTP_PORT, ()=> {console.log("server listening on port:" + HTTP_PORT)});
 
     //http://localhost:8080/students?course=value
     app.get("/students", (req, res) => {
