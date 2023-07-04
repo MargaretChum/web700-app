@@ -1,13 +1,110 @@
-html body{
-    background-color: pink;
+html
+.navbar{
+    background-color: darkslategrey;
+    box-shadow: 0 20px 30px 0 rgba(20,20,50,.2);   
 }
 
-h1{
-    color: darkcyan;
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@600&display=swap');
+.navbar-brand{
+    color: #e7a61a;
+    font-family: 'Ysabeau SC', sans-serif;
+    text-shadow:beige 1px 1px 1px;
 }
 
-@import url(https://kinsta.com/blog/web-safe-fonts);
-h1{
-    font-family:"Copperplate Gothic";
-    text-align:center
+.nav-link{
+    font-family: 'Ysabeau SC', sans-serif;
+    color: orange
+}
+body{
+    background-color: #cfe388;
+}
+
+html {
+  background: lightgoldenrodyellow;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inconsolata', monospace; 
+    color: green;
+    text-align: center;
+  }
+
+header{
+    color: #c03f96;
+    font-family:Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    font-size: x-large;
+    text-align:left;
+    background: #012B39;
+    border-radius: 0.5em;
+    border-collapse: collapse;
+    margin: 1em;
+}
+
+
+p{
+    color: brown;
+    font-family:Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    text-align:left
+}
+ 
+  
+table {
+  background: #012B39;
+  border-radius: 2em;
+  border-collapse: collapse;
+  margin: 1em;
+  text-align: left;
+  width: 100%;
+}
+.header{
+  text-align: center;
+  font-family: 'Inconsolata', monospace; 
+  margin-bottom: 0px;
+  text-decoration: underline;
+
+}
+table tbody tr:nth-child(n+1):nth-child(-n+3):nth-child(odd){
+  background-color:lightseagreen;
+}
+
+th {
+  border-bottom: 2px solid #364043;
+  background: #012B39;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  border-radius: 2em;
+  border-collapse: collapse;
+  padding: 10em 20em;
+  text-align: center;
+}
+td {
+  color:whitesmoke;
+  font-weight: 400;
+  padding: 0.65em 1em;
+  text-align: center;
+}
+
+tfoot td{
+  color:whitesmoke;
+  font-weight: bold;
+  padding: 0.65em 1em;
+  text-align: center;
+}
+
+td[colspan]{
+  text-align: right;
+}
+
+td[rowspan]{
+  vertical-align: middle;
+}
+
+a{
+  color:purple
+}
+
+a:hover{
+  color:lightseagreen
 }

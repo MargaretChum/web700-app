@@ -9,13 +9,19 @@
 ********************************************************************************/ 
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
+var bodyParse = require("body-parser")
 var app = express();
 var collegeData = require("./modules/collegeData.js")
+
+app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
+app.post('/submit',(req,res)=>{
+  const formData = req.body;
+});
 
 collegeData.initialize()
   .then(                          //resolve promise of initialize()
     function(){
-    app.use(express.static('public'));
       // setup http server to listen on HTTP_PORT
     app.listen(HTTP_PORT, ()=> {console.log("server listening on port:" + HTTP_PORT)});
 
@@ -105,11 +111,16 @@ collegeData.initialize()
     app.get("/htmlDemo", (req, res) => {
       res.sendFile(__dirname +'/views/htmlDemo.html')
   });
+    //http://localhost:8080/addStudent -- Return addStudent.html
+    app.get("/addStudent", (req, res) => {
+      res.sendFile(__dirname +'/views/addStudent.html')
+    })
 
     //http://localhost:8080/about -- Return htmlDemo.html
     app.use((req, res) => {
         res.status(404).sendFile(__dirname +'/Error.jpg')   
    });
+
 })
   .catch(function(err){       //reject promise of initialize()
   var msg = {
