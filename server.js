@@ -10,7 +10,7 @@
 ********************************************************************************/ 
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
-var bodyParse = require("body-parser")
+//var bodyParse = require("body-parser")
 var path = require('path')
 var app = express();
 var collegeData = require("./modules/collegeData.js");
@@ -130,7 +130,7 @@ collegeData.initialize()
         .catch((error) => {
           // Handle any errors that occur during the addStudent function
           console.log(error);
-          res.status(500).send('An error occurred while adding the student.');
+          res.status(500).send('Internal server error occurred while adding the student.');
         });
     });
 
