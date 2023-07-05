@@ -16,19 +16,38 @@ html
     color: orange
 }
 body{
-    background-color: #cfe388;
+  background-image: linear-gradient(to bottom right,#e1e31c ,#899b14);
 }
 
 html {
   background: lightgoldenrodyellow;
 }
 
+.btn-primary{
+  background-color: #E2B842;
+  border-color: #c79038;
+  box-shadow: 0.4px 0.5px #888888;
+  ;
+}
+.btn-primary:hover{
+  background-color:#6aae51;
+  border-color: #56a999;
+  box-shadow: 0.4px 0.5px #85b1cd;
+}
+
+table tbody tr:nth-child(n+1):nth-child(-n+3):nth-child(odd){
+  background-color:lightseagreen;
+}
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Inconsolata', monospace; 
-    color: green;
+    color: #8590ad;
     text-align: center;
   }
+
+h1{
+  padding-top: 20px;
+}
 
 header{
     color: #c03f96;
@@ -41,13 +60,11 @@ header{
     margin: 1em;
 }
 
-
 p{
     color: brown;
     font-family:Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
     text-align:left
 }
- 
   
 table {
   background: #012B39;
@@ -63,9 +80,6 @@ table {
   margin-bottom: 0px;
   text-decoration: underline;
 
-}
-table tbody tr:nth-child(n+1):nth-child(-n+3):nth-child(odd){
-  background-color:lightseagreen;
 }
 
 th {
@@ -107,4 +121,13 @@ a{
 
 a:hover{
   color:lightseagreen
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+legend {
+  padding-top: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #695211;
+  text-shadow:1px 0.5px gray;
+  
 }

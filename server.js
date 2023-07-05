@@ -117,6 +117,21 @@ collegeData.initialize()
     app.get("/addStudent", (req, res) => {
       res.sendFile(__dirname +'/views/addStudent.html')
     })
+    //add "Post route"
+    http://localhost:8080/students/add
+    app.post('/students/add', (req, res) => {
+      // Call the addStudent function from collegeData.js and provide req.body as the parameter
+      collegeData.addStudent(req.body)
+        .then(() => {
+          // Redirect to the "/students" route
+          res.redirect('/students');
+        })
+        .catch((error) => {
+          // Handle any errors that occur during the addStudent function
+          console.log(error);
+          res.status(500).send('An error occurred while adding the student.');
+        });
+    });
 
     //http://localhost:8080/about -- Return htmlDemo.html
     app.use((req, res) => {
