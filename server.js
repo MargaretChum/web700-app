@@ -125,11 +125,6 @@ collegeData.initialize()
         .then(() => {
           res.redirect('/students'); // redirect to "/student"
         })
-        // .catch((error) => {
-        //   // Handle any errors that occur during the addStudent function
-        //   console.log(error);
-        //   res.status(500).send('Internal server error occurred while adding the student.');
-        // });
     });
 
     //http://localhost:8080/about -- Return htmlDemo.html
