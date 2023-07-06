@@ -119,19 +119,17 @@ collegeData.initialize()
       res.sendFile(__dirname +'/views/addStudent.html')
     })
     //add "Post route"
-    http://localhost:8080/students/add
+    http://localhost:8080/students/add -- Create Post route
     app.post('/students/add', (req, res) => {
-      // Call the addStudent function from collegeData.js and provide req.body as the parameter
-      collegeData.addStudent(req.body)
+      collegeData.addStudent(req.body) 
         .then(() => {
-          // Redirect to the "/students" route
-          res.redirect('/students');
+          res.redirect('/students'); // redirect to "/student"
         })
-        .catch((error) => {
-          // Handle any errors that occur during the addStudent function
-          console.log(error);
-          res.status(500).send('Internal server error occurred while adding the student.');
-        });
+        // .catch((error) => {
+        //   // Handle any errors that occur during the addStudent function
+        //   console.log(error);
+        //   res.status(500).send('Internal server error occurred while adding the student.');
+        // });
     });
 
     //http://localhost:8080/about -- Return htmlDemo.html
