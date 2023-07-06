@@ -104,13 +104,12 @@ module.exports.getStudentsByCourse = function (course) {
 
 module.exports.addStudent= function(studentData){
     return new Promise((resolve, reject) => {
+        studentData.studentNum = dataCollection.students.length + 1;
         if (studentData.TA === undefined) {
           studentData.TA = false;
         } else {
           studentData.TA = true;
         }
-    
-        studentData.studentNum = dataCollection.students.length + 1;
     
         dataCollection.students.push(studentData);
     
