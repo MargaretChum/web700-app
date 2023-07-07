@@ -110,7 +110,7 @@ module.exports.addStudent= function(studentData){
           studentData.TA = true;
         }
         studentData.studentNum = dataCollection.students.length + 1;
-        dataCollection.students.push(studentData[0]);
+        dataCollection.students.append(studentData);
     
         resolve();
       });
