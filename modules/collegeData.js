@@ -109,10 +109,7 @@ module.exports.addStudent= function(studentData){
         } else {
           studentData.TA = true;
         }
-        //test1 = dataCollection.students.length + 1;
-
         studentData.unshift(studentData.studentNum = dataCollection.students.length + 1);
-        //studentData.studentNum = dataCollection.students.length + 1;
         dataCollection.students.push(studentData);
     
         resolve();
