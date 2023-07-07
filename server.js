@@ -10,12 +10,12 @@
 ********************************************************************************/ 
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
-var path = require('path')
+//var path = require('path')
 var app = express();
 var collegeData = require("./modules/collegeData.js");
-var public = path.join(__dirname, 'public');
+//var public = path.join(__dirname, 'public');
 
-app.use(express.static(public));
+app.use(express.static(__dirname +'public'));
 app.use(express.urlencoded({extended: true}));
 app.post('/submit',(req,res)=>{
   const formData = req.body;
