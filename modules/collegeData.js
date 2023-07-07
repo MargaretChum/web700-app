@@ -109,6 +109,7 @@ module.exports.addStudent= function(studentData){
         } else {
           studentData.TA = true;
         }
+        studentData.course = parseint(studentData.course);
         studentData.studentNum = dataCollection.students.length + 1;
         dataCollection.students.push(studentData);
     
