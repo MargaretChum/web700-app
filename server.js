@@ -15,7 +15,7 @@ var app = express();
 var collegeData = require("./modules/collegeData.js");
 //var public = path.join(__dirname, 'public');
 
-app.use(express.static(__dirname +'public'));
+app.use(express.static(__dirname +'/public'));
 app.use(express.urlencoded({extended: true}));
 app.post('/submit',(req,res)=>{
   const formData = req.body;
