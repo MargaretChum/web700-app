@@ -12,6 +12,7 @@ var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
 var app = express();
 var collegeData = require("./modules/collegeData.js");
+var exphbs = require('express-handlebars'); //config express-handlebars
 
 app.use(express.static(__dirname +'/public'));
 app.use(express.urlencoded({extended: true}));
@@ -19,6 +20,15 @@ app.post('/submit',(req,res)=>{
   const formData = req.body;
   console.log(formData)
 });
+
+// add handlebars engine
+app.engine('.hbs', exphbs.engine(
+  {extname: '.hbs',
+  layout:'main',
+})
+)
+app.set('view engine', '.hbs');
+
 
 collegeData.initialize()
   .then(                          //resolve promise of initialize()
@@ -101,20 +111,24 @@ collegeData.initialize()
 
     //http://localhost:8080 -- Return home.html
     app.get("/", (req, res) => {
-        res.sendFile(__dirname+'/views/home.html')
+      res.render('home')  
+      //res.sendFile(__dirname+'/views/home_copy.html')
   });
 
     //http://localhost:8080/about -- Return abouthtml
     app.get("/about", (req, res) => {
-      res.sendFile(__dirname+'/views/about.html')
+      res.render('about') 
+      //res.sendFile(__dirname+'/views/about.html')
   });
     //http://localhost:8080/htmlDemo -- Return htmlDemo.html
     app.get("/htmlDemo", (req, res) => {
-      res.sendFile(__dirname +'/views/htmlDemo.html')
+      res.render('htmlDemo') 
+      //res.sendFile(__dirname +'/views/htmlDemo.html')
   });
     //http://localhost:8080/addStudent -- Return addStudent.html
     app.get("/addStudent", (req, res) => {
-      res.sendFile(__dirname +'/views/addStudent.html')
+      res.render('addStudent') 
+      //res.sendFile(__dirname +'/views/addStudent.html')
     })
     //add "Post route"
     http://localhost:8080/students/add -- Create Post route
