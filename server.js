@@ -25,9 +25,32 @@ app.post('/submit',(req,res)=>{
 app.engine('.hbs', exphbs.engine(
   {extname: '.hbs',
   layout:'main',
+  helpers:{
+    navLink: function(url, options){
+      return '<li' + 
+          ((url == app.locals.activeRoute) ? ' class="nav-item active" ' : ' class="nav-item" ') + 
+          '><a class="nav-link" href="' + url + '">' + options.fn(this) + '</a></li>';
+    },
+    equal: function (lvalue, rvalue, options) {
+      if (arguments.length < 3)
+          throw new Error("Handlebars Helper equal needs 2 parameters");
+      if (lvalue != rvalue) {
+          return options.inverse(this);
+      } else {
+          return options.fn(this);
+      }
+    }  
+  }
 })
 )
 app.set('view engine', '.hbs');
+
+//Fix Navigation Bar to show correct "active" item
+app.use(function(req,res,next){
+  let route = req.path.substring(1);
+  app.locals.activeRoute = "/" + (isNaN(route.split('/')[1]) ? route.replace(/\/(?!.*)/, "") : route.replace(/\/(.*)/, ""));    
+  next();
+});
 
 
 collegeData.initialize()
@@ -67,18 +90,18 @@ collegeData.initialize()
     });
 
     //http://localhost:8080/tas
-    app.get("/tas", (req, res) => {
-      collegeData.getTAs()
-        .then(function(tas){         //resolve promise of getTAs()
-          res.send(tas)
-        })
-        .catch(function(err){       //reject promise of getTAs()
-          var msg = {
-            message: "no result"
-          }
-          res.send(JSON.stringify(msg.message))
-        }) 
-    });
+    // app.get("/tas", (req, res) => {
+    //   collegeData.getTAs()
+    //     .then(function(tas){         //resolve promise of getTAs()
+    //       res.send(tas)
+    //     })
+    //     .catch(function(err){       //reject promise of getTAs()
+    //       var msg = {
+    //         message: "no result"
+    //       }
+    //       res.send(JSON.stringify(msg.message))
+    //     }) 
+    // });
 
     //http://localhost:8080/courses
     app.get("/courses", (req, res) => {
