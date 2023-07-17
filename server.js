@@ -14,6 +14,7 @@ var app = express();
 var collegeData = require("./modules/collegeData.js");
 var exphbs = require('express-handlebars'); //config express-handlebars
 
+
 app.use(express.static(__dirname +'/public'));
 app.use(express.urlencoded({extended: true}));
 app.post('/submit',(req,res)=>{
@@ -39,7 +40,8 @@ app.engine('.hbs', exphbs.engine(
       } else {
           return options.fn(this);
       }
-    }  
+    },
+
   }
 })
 )
@@ -60,34 +62,33 @@ collegeData.initialize()
     app.listen(HTTP_PORT, ()=> {console.log("server listening on port:" + HTTP_PORT)});
 
     //http://localhost:8080/students?course=value
-    app.get("/students", (req, res) => {
-
+    app.get("/students",(req, res) => {    
       if(req.query.course){
-       collegeData.getStudentsByCourse(req.query.course)
-        .then(function(studentsByCourse){         //resolve promise of getStudentsByCourse()
-          res.send(studentsByCourse)
-        })
-        .catch(function(err){       //reject promise of getStudentsByCourse()
-          var msg = {
-            message: "no result"
-          }
-          res.send(JSON.stringify(msg.message))
-        })
-
-      }
-      else{
-      collegeData.getAllStudents()
-        .then(function(students){         //resolve promise of getAllStudents()
-          res.send(students)
-        })
-        .catch(function(err){       //reject promise of getAllStudents()
-          var msg = {
-            message: "no result"
-          }
-          res.send(JSON.stringify(msg.message))
-        })
-      } 
-    });
+        collegeData.getStudentsByCourse(req.query.course)
+         .then(function(studentsByCourse){         //resolve promise of getStudentsByCourse()
+           res.send(studentsByCourse)
+         })
+         .catch(function(err){       //reject promise of getStudentsByCourse()
+           var msg = {
+             message: "no result"
+           }
+           res.send(JSON.stringify(msg.message))
+         })
+ 
+       }
+       else{
+       collegeData.getAllStudents()
+         .then(function(students){         //resolve promise of getAllStudents()
+           res.send(students)
+         })
+         .catch(function(err){       //reject promise of getAllStudents()
+           var msg = {
+             message: "no result"
+           }
+           res.send(JSON.stringify(msg.message))
+         })
+       } 
+     });
 
     //http://localhost:8080/tas
     // app.get("/tas", (req, res) => {
@@ -166,12 +167,11 @@ collegeData.initialize()
     app.use((req, res) => {
         res.status(404).sendFile(__dirname +'/Error.jpg')   
    });
-
-})
+  })   
   .catch(function(err){       //reject promise of initialize()
-  var msg = {
-    message: "no result"
-  }
-  res.send(JSON.stringify(msg.message))
-});
+    var msg = {
+      message: "no result"
+    }
+    res.send(JSON.stringify(msg.message))
+  });
 
