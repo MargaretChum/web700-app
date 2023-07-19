@@ -35,7 +35,7 @@ html {
   box-shadow: 0.4px 0.5px #85b1cd;
 }
 
-table tbody tr:nth-child(n+1):nth-child(-n+3):nth-child(odd){
+table tbody tr:nth-child(n+1):nth-child(odd){
   background-color:lightseagreen;
 }
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@800&display=swap');
@@ -88,11 +88,17 @@ th {
   color: #E2B842;
   font-size: 0.85em;
   font-weight: 600;
-  border-radius: 2em;
   border-collapse: collapse;
-  padding: 10em 20em;
-  text-align: center;
+  padding: 10em 10em;
+  text-align: center;  
 }
+th:first-child{
+  border-top-left-radius:2em;
+}
+th:last-child {
+  border-top-right-radius:2em;
+}
+
 td {
   color:whitesmoke;
   font-weight: 400;
@@ -100,11 +106,18 @@ td {
   text-align: center;
 }
 
-tfoot td{
-  color:whitesmoke;
+tfoot tr{
   font-weight: bold;
   padding: 0.65em 1em;
   text-align: center;
+}
+
+tr:last-child td:first-child{
+  border-bottom-left-radius:2em;
+}
+
+tr:last-child td:last-child{
+  border-bottom-right-radius:2em;
 }
 
 td[colspan]{
@@ -121,6 +134,12 @@ a{
 
 a:hover{
   color:lightseagreen
+}
+.table a {
+  color: white
+}
+.table a:hover {
+  color: darkgoldenrod
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');

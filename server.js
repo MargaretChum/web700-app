@@ -43,8 +43,8 @@ app.engine('.hbs', exphbs.engine(
     },
 
   }
-})
-)
+}));
+
 app.set('view engine', '.hbs');
 
 //Fix Navigation Bar to show correct "active" item
@@ -63,32 +63,27 @@ collegeData.initialize()
 
     //http://localhost:8080/students?course=value
     app.get("/students",(req, res) => {    
+
       if(req.query.course){
         collegeData.getStudentsByCourse(req.query.course)
          .then(function(studentsByCourse){         //resolve promise of getStudentsByCourse()
-           res.send(studentsByCourse)
+           res.render('students', {data: studentsByCourse})
          })
          .catch(function(err){       //reject promise of getStudentsByCourse()
-           var msg = {
-             message: "no result"
-           }
-           res.send(JSON.stringify(msg.message))
+          res.render('students',{message: "no results"});
          })
- 
        }
        else{
-       collegeData.getAllStudents()
+          collegeData.getAllStudents()
          .then(function(students){         //resolve promise of getAllStudents()
-           res.send(students)
+           //res.send(students)
+           res.render('students', {data: students}); 
          })
          .catch(function(err){       //reject promise of getAllStudents()
-           var msg = {
-             message: "no result"
-           }
-           res.send(JSON.stringify(msg.message))
+           res.render('students',{message: "no results"});
          })
-       } 
-     });
+     }
+    });
 
     //http://localhost:8080/tas
     // app.get("/tas", (req, res) => {
@@ -108,13 +103,15 @@ collegeData.initialize()
     app.get("/courses", (req, res) => {
       collegeData.getCourses()
         .then(function(courses){         //resolve promise of getTAs()
-          res.send(courses)
+          res.render('courses', {data: courses});
+          //res.send(courses)
         })
         .catch(function(err){       //reject promise of getTAs()
-          var msg = {
-            message: "no result"
-          }
-          res.send(JSON.stringify(msg.message))
+          res.render('students',{message: "no results"});
+          // var msg = {
+          //   message: "no result"
+          // }
+          // res.send(JSON.stringify(msg.message))
         }) 
     });
 
@@ -123,15 +120,26 @@ collegeData.initialize()
       
         collegeData.getStudentByNum(req.params.num)
          .then(function(studentByNum){         //resolve promise of getStudentsByNum()
-           res.send(studentByNum)
+          res.render('student', {data: studentByNum})
+          //res.send(studentByNum)
          })
          .catch(function(err){       //reject promise of getStudentsByNum()
-           var msg = {
-             message: "no result"
-           }
-           res.send(JSON.stringify(msg.message))
+          res.render('student',{message: "no results"}); 
          })
     });
+
+     //http://localhost:8080/course/id
+     app.get("/course/:id", (req, res) => {
+      
+      collegeData.getCourseById(req.params.id)
+       .then(function(courseById){         
+        res.render('course', {data: courseById})
+        //res.send(courseById)
+       })
+       .catch(function(err){       
+        res.render('course',{message: "no results"}); 
+       })
+  });
 
     //http://localhost:8080 -- Return home.html
     app.get("/", (req, res) => {
@@ -167,11 +175,13 @@ collegeData.initialize()
     app.use((req, res) => {
         res.status(404).sendFile(__dirname +'/Error.jpg')   
    });
-  })   
+  })      
   .catch(function(err){       //reject promise of initialize()
     var msg = {
       message: "no result"
     }
     res.send(JSON.stringify(msg.message))
-  });
+});
+
+
 

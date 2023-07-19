@@ -68,11 +68,13 @@ module.exports.getCourses = function(){
 
 module.exports.getStudentByNum = function (num) {
     return new Promise(function (resolve, reject) {
-        var foundStudent = null;
+        var foundStudent =[];
+        //var foundStudent = null;
 
         for (let i = 0; i < dataCollection.students.length; i++) {
             if (dataCollection.students[i].studentNum == num) {
-                foundStudent = dataCollection.students[i];
+                foundStudent.push(dataCollection.students[i]);
+                //foundStudent = dataCollection.students[i];
             }
         }
 
@@ -115,5 +117,22 @@ module.exports.addStudent= function(studentData){
     
         resolve();
       });
-    };
+};
 
+module.exports.getCourseById = function (id) {
+    return new Promise(function (resolve, reject) {
+        var foundcourse =[];
+
+        for (let i = 0; i < dataCollection.courses.length; i++) {
+            if (dataCollection.courses[i].courseId == id) {
+                foundcourse.push(dataCollection.courses[i]);
+            }
+        }
+
+        if (!foundcourse) {
+            reject("no results returned"); return;
+        }
+
+        resolve(foundcourse);
+    });
+};

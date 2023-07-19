@@ -1,19 +1,33 @@
 <div class="row">
-    <div class="col-md-12">
-          <br>
-          <h2 style="text-align:left">Students</h2>
-          <hr />
-
-          <p>
-            
-            <ul>
-                {{#each data}}
-                <li>{{firstName}} {{lastName}}</li>
-                <br>
-                {{/each}}
-            </ul>
-            
-          </p>
+    <div class="col-md-12 text-center">
+      <br>
+       <h2 style="text-align:left">Students</h2>
+        <strong>{{message}}</strong>
+      <hr />
+      <p>
+      <div class="table-responsive-sm">
+        <table class="table">     
+          <tr>
+            <th>Student Num</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Course ID</th>
+          </tr> 
+              {{#each data}}
+          <tr>
+            <td>{{studentNum}}</td>
+            <td><a href="/student/{{studentNum}}">{{firstName}} {{lastName}}</a></td>
+            <td><a href="mailto:{{email}}">{{email}}</a></td>
+            <td>{{addressStreet}},{{addressCity}},{{addressProvince}}</td>
+            <td>{{status}}</td>
+            <td><a href="/students?course={{course}}">{{course}}</a></td>
+          </tr>    
+              {{/each}}  
+         </table>
+      </div>      
+      </p>
 
     </div>
 </div>
