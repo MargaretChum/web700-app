@@ -1,24 +1,20 @@
 <div class="row">
     <div class="col-md-12">
         <br>
-        <h2>{{#each data}} {{courseDescription}} {{/each}}</h2>
+        <h2>{{course.courseDescription}}</h2>
         <hr />
         <form>
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="courseDescription">Course Code</label>
-                        {{#each data}}
-                        <input class="form-control" id="courseCode" name="courseCode" type="text" readonly value="{{courseCode}}" />
-                        {{/each}}
+                        <input class="form-control" id="courseCode" name="courseCode" type="text" readonly value="{{course.courseCode}}" />
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">
                         <label for="courseDescription">Course Description</label>
-                        {{#each data}}
-                        <input class="form-control" id="courseDescription" name="courseDescription" type="text" readonly value="{{courseDescription}}" />
-                        {{/each}}
+                        <input class="form-control" id="courseDescription" name="courseDescription" type="text" readonly value="{{course.courseDescription}}" />
                     </div>
                 </div>
             </div>

@@ -74,12 +74,12 @@ table {
   text-align: left;
   width: 100%;
 }
+
 .header{
   text-align: center;
   font-family: 'Inconsolata', monospace; 
   margin-bottom: 0px;
   text-decoration: underline;
-
 }
 
 th {
@@ -100,7 +100,7 @@ th:last-child {
 }
 
 td {
-  color:whitesmoke;
+  color:white;
   font-weight: 400;
   padding: 0.65em 1em;
   text-align: center;
@@ -112,11 +112,11 @@ tfoot tr{
   text-align: center;
 }
 
-tr:last-child td:first-child{
+#students_table tr:last-child td:first-child{
   border-bottom-left-radius:2em;
 }
 
-tr:last-child td:last-child{
+#students_table tr:last-child td:last-child{
   border-bottom-right-radius:2em;
 }
 
@@ -136,7 +136,7 @@ a:hover{
   color:lightseagreen
 }
 .table a {
-  color: white
+  color:white
 }
 .table a:hover {
   color: darkgoldenrod

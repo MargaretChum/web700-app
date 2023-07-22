@@ -1,5 +1,5 @@
 /*********************************************************************************
-*  WEB700 – Assignment 04
+*  WEB700 – Assignment 05
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part 
 *  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
@@ -21,10 +21,17 @@ app.post('/submit',(req,res)=>{
   const formData = req.body;
   console.log(formData)
 });
+//Fix Navigation Bar to show correct "active" item
+app.use(function(req,res,next){
+  let route = req.path.substring(1);
+  app.locals.activeRoute = "/" + (isNaN(route.split('/')[1]) ? route.replace(/\/(?!.*)/, "") : route.replace(/\/(.*)/, ""));    
+  next();
+});
 
 // add handlebars engine
 app.engine('.hbs', exphbs.engine(
-  {extname: '.hbs',
+  {
+  extname: '.hbs',
   layout:'main',
   helpers:{
     navLink: function(url, options){
@@ -46,13 +53,6 @@ app.engine('.hbs', exphbs.engine(
 }));
 
 app.set('view engine', '.hbs');
-
-//Fix Navigation Bar to show correct "active" item
-app.use(function(req,res,next){
-  let route = req.path.substring(1);
-  app.locals.activeRoute = "/" + (isNaN(route.split('/')[1]) ? route.replace(/\/(?!.*)/, "") : route.replace(/\/(.*)/, ""));    
-  next();
-});
 
 
 collegeData.initialize()
@@ -119,12 +119,12 @@ collegeData.initialize()
     app.get("/student/:num", (req, res) => {
       
         collegeData.getStudentByNum(req.params.num)
-         .then(function(studentByNum){         //resolve promise of getStudentsByNum()
-          res.render('student', {data: studentByNum})
+         .then(function(student){         //resolve promise of getStudentsByNum()
+          res.render("student", { student: student})
           //res.send(studentByNum)
          })
          .catch(function(err){       //reject promise of getStudentsByNum()
-          res.render('student',{message: "no results"}); 
+          res.render("student",{message: "no results"}); 
          })
     });
 
@@ -132,12 +132,12 @@ collegeData.initialize()
      app.get("/course/:id", (req, res) => {
       
       collegeData.getCourseById(req.params.id)
-       .then(function(courseById){         
-        res.render('course', {data: courseById})
+       .then(function(coursebyid){         
+        res.render("course", {course: coursebyid })
         //res.send(courseById)
        })
        .catch(function(err){       
-        res.render('course',{message: "no results"}); 
+        res.render("course",{message: "no results"}); 
        })
   });
 
@@ -152,16 +152,19 @@ collegeData.initialize()
       res.render('about') 
       //res.sendFile(__dirname+'/views/about.html')
   });
+
     //http://localhost:8080/htmlDemo -- Return htmlDemo.html
     app.get("/htmlDemo", (req, res) => {
       res.render('htmlDemo') 
       //res.sendFile(__dirname +'/views/htmlDemo.html')
   });
+
     //http://localhost:8080/addStudent -- Return addStudent.html
     app.get("/addStudent", (req, res) => {
       res.render('addStudent') 
       //res.sendFile(__dirname +'/views/addStudent.html')
     })
+
     //add "Post route"
     http://localhost:8080/students/add -- Create Post route
     app.post('/students/add', (req, res) => {
@@ -171,7 +174,19 @@ collegeData.initialize()
         })
     });
 
-    //http://localhost:8080/about -- Return htmlDemo.html
+    http://localhost:8080/students/update 
+    app.post('/student/update', (req, res) => {
+      //console.log(req.body);  
+      collegeData.updateStudent(req.body) 
+        .then(function(update) {
+      res.redirect("/students");
+      })
+      .catch(function(err){       
+        res.render("student",{message: "no update made"}); 
+       })
+    });
+  
+  //error
     app.use((req, res) => {
         res.status(404).sendFile(__dirname +'/Error.jpg')   
    });

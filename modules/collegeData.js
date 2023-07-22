@@ -68,13 +68,13 @@ module.exports.getCourses = function(){
 
 module.exports.getStudentByNum = function (num) {
     return new Promise(function (resolve, reject) {
-        var foundStudent =[];
-        //var foundStudent = null;
+        //var foundStudent =[];
+        var foundStudent = null;
 
         for (let i = 0; i < dataCollection.students.length; i++) {
             if (dataCollection.students[i].studentNum == num) {
-                foundStudent.push(dataCollection.students[i]);
-                //foundStudent = dataCollection.students[i];
+                //foundStudent.push(dataCollection.students[i]);
+                foundStudent = dataCollection.students[i];
             }
         }
 
@@ -121,11 +121,13 @@ module.exports.addStudent= function(studentData){
 
 module.exports.getCourseById = function (id) {
     return new Promise(function (resolve, reject) {
-        var foundcourse =[];
+        //var foundcourse =[];
+        var foundcourse =null;
 
         for (let i = 0; i < dataCollection.courses.length; i++) {
             if (dataCollection.courses[i].courseId == id) {
-                foundcourse.push(dataCollection.courses[i]);
+                //foundcourse.push(dataCollection.courses[i]);
+                foundcourse = dataCollection.courses[i]
             }
         }
 
@@ -134,5 +136,36 @@ module.exports.getCourseById = function (id) {
         }
 
         resolve(foundcourse);
+    });
+};
+
+module.exports.updateStudent= function(studentData){
+    return new Promise((resolve, reject) => {
+        var foundStudent = null;
+
+        for (let i = 0; i < dataCollection.students.length; i++) {
+            if (dataCollection.students[i].studentNum == studentData.studentNum) {
+                
+                dataCollection.students[i].firstName = studentData.firstName;
+                dataCollection.students[i].lastName = studentData.lasttName;
+                dataCollection.students[i].email = studentData.email;
+                dataCollection.students[i].addressStreet = studentData.addressStreet;
+                dataCollection.students[i].addressCity = studentData.addressCity;
+                dataCollection.students[i].addressProvince = studentData.addressProvince;
+                dataCollection.students[i].addressProvince = studentData.addressProvince;
+                if (studentData.TA == null) {
+                    dataCollection.students[i].TA = false;
+                }else{
+                    dataCollection.students[i].TA = true;
+                }
+                dataCollection.students[i].status = studentData.status;
+                dataCollection.students[i].course = parseInt(studentData.course);
+            }
+        }
+
+        if (studentData == null) {
+            reject("no results returned"); return;
+        }
+        resolve();
     });
 };
