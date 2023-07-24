@@ -1,24 +1,31 @@
-<div class="row">
-    <div class="col-md-12 text-center">
-          <strong>{{message}}</strong>
-          <br>
-          <h2 style="text-align:left">Courses</h2>
-          <hr />
+<!doctype html>
+<html>
+    <head>
+        <title>courses</title>
+    </head>
 
-          <p>
-          <div class="table-responsive-sm">
-           <table class="table">     
-            <tr>
-                <th>Course Code</th>
-                <th>Course Description</th>
-            </tr>
-                {{#each data}}
-            <tr>
-                <td><a href="/course/{{courseId}}">{{courseCode}}</a></td>
-                <td><a href="/students?course={{courseId}}">{{courseDescription}}</a></td>               
-            </tr>
-                {{/each}}
-          </p>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <strong>{{message}}</strong>
+            <br>
+            <h2 style="text-align:left">Courses</h2>
+            <hr />
 
+            <p>
+            <div class="table-responsive-sm">
+            <table class="table">     
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Description</th>
+                </tr>
+                    {{#each data}}
+                <tr>
+                    <td><a href="/course/{{courseId}}">{{courseCode}}</a></td>
+                    <td><a href="/students?course={{courseId}}">{{courseDescription}}</a></td>               
+                </tr>
+                    {{/each}}
+            </p>
+
+        </div>
     </div>
-</div>
+</html>

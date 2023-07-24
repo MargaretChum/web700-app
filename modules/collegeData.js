@@ -147,7 +147,7 @@ module.exports.updateStudent= function(studentData){
             if (dataCollection.students[i].studentNum == studentData.studentNum) {
                 
                 dataCollection.students[i].firstName = studentData.firstName;
-                dataCollection.students[i].lastName = studentData.lasttName;
+                dataCollection.students[i].lastName = studentData.lastName;
                 dataCollection.students[i].email = studentData.email;
                 dataCollection.students[i].addressStreet = studentData.addressStreet;
                 dataCollection.students[i].addressCity = studentData.addressCity;
