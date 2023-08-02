@@ -1,24 +1,36 @@
-const fs = require("fs");
+// const fs = require("fs");
 
-class Data{
-    constructor(students, courses){
-        this.students = students;
-        this.courses = courses;
-    }
-}
+// class Data{
+//     constructor(students, courses){
+//         this.students = students;
+//         this.courses = courses;
+//     }
+// }
 
-let dataCollection = null;
+// let dataCollection = null;
+
+const Sequelize = require('sequelize');
+var sequelize = new Sequelize('xxuyvjza', 'xxuyvjza', '9xUS37hmdXWqUU0VW9CtbYnKQ5qqFnC4', {
+    host: 'stampy.db.elephantsql.com ',
+    dialect: 'postgres',
+    port: 5432,
+    dialectOptions: {
+        ssl: { rejectUnauthorized: false }
+    },
+    query:{ raw: true }
+});
+
 
 module.exports.initialize = function () {
     return new Promise( (resolve, reject) => {
         fs.readFile('./data/courses.json','utf8', (err, courseData) => {
             if (err) {
-                reject("unable to load courses"); return;
+                reject(); return; //removed "unable to load courses"
             }
 
             fs.readFile('./data/students.json','utf8', (err, studentData) => {
                 if (err) {
-                    reject("unable to load students"); return;
+                    reject(); return; //removed "unable to load students"
                 }
 
                 dataCollection = new Data(JSON.parse(studentData), JSON.parse(courseData));
@@ -31,10 +43,10 @@ module.exports.initialize = function () {
 module.exports.getAllStudents = function(){
     return new Promise((resolve,reject)=>{
         if (dataCollection.students.length == 0) {
-            reject("query returned 0 results"); return;
+            reject(); return; //removed "query returned 0 results"
         }
 
-        resolve(dataCollection.students);
+        resolve(); //removed dataCollection.students
     })
 }
 
@@ -49,20 +61,20 @@ module.exports.getTAs = function () {
         }
 
         if (filteredStudents.length == 0) {
-            reject("query returned 0 results"); return;
+            reject(); return; //removed "query returned 0 results"
         }
 
-        resolve(filteredStudents);
+        resolve(); //removed filteredStudents
     });
 };
 
 module.exports.getCourses = function(){
    return new Promise((resolve,reject)=>{
     if (dataCollection.courses.length == 0) {
-        reject("query returned 0 results"); return;
+        reject(); return; //removed "query returned 0 results"
     }
 
-    resolve(dataCollection.courses);
+    resolve(); //removed dataCollection.courses
    });
 };
 
@@ -79,10 +91,10 @@ module.exports.getStudentByNum = function (num) {
         }
 
         if (!foundStudent) {
-            reject("no results returned"); return;
+            reject(); return; //removed "no results returned"
         }
 
-        resolve(foundStudent);
+        resolve(); //removed foundStudent
     });
 };
 
@@ -97,10 +109,10 @@ module.exports.getStudentsByCourse = function (course) {
         }
 
         if (filteredStudents.length == 0) {
-            reject("no results returned"); return;
+            reject(); return; //removed "no results returned"
         }
 
-        resolve(filteredStudents);
+        resolve(); //removed filteredStudents
     });
 };
 
@@ -132,10 +144,10 @@ module.exports.getCourseById = function (id) {
         }
 
         if (!foundcourse) {
-            reject("no results returned"); return;
+            reject(); return; //removed "no results returned"
         }
 
-        resolve(foundcourse);
+        resolve(); //removed foundcourse
     });
 };
 
@@ -164,7 +176,7 @@ module.exports.updateStudent= function(studentData){
         }
 
         if (studentData == null) {
-            reject("no results returned"); return;
+            reject(); return; //removed "no results returned"
         }
         resolve();
     });
