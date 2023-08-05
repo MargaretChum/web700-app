@@ -1,14 +1,3 @@
-// const fs = require("fs");
-
-// class Data{
-//     constructor(students, courses){
-//         this.students = students;
-//         this.courses = courses;
-//     }
-// }
-
-// let dataCollection = null;
-
 const Sequelize = require('sequelize');
 var sequelize = new Sequelize('xxuyvjza', 'xxuyvjza', '9xUS37hmdXWqUU0VW9CtbYnKQ5qqFnC4', {
     host: 'stampy.db.elephantsql.com',
@@ -17,15 +6,18 @@ var sequelize = new Sequelize('xxuyvjza', 'xxuyvjza', '9xUS37hmdXWqUU0VW9CtbYnKQ
     dialectOptions: {
         ssl: { rejectUnauthorized: false }
     },
-    query:{ raw: true }
+    query:{raw:true}
 });
-// Define a "Data" Model
+
+// Define a "Student" model (http://docs.sequelizejs.com/variable/index.html#static-variable-DataTypes)
+
 var Student = sequelize.define('Student', {
-    studentNum:{
+    studentNum: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
-        autolncrement:true 
+        primaryKey: true, // use "studentNum" as a primary key
+        autoIncrement: true // automatically increment the value
     },
+    
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
     email: Sequelize.STRING,
@@ -36,68 +28,51 @@ var Student = sequelize.define('Student', {
     status: Sequelize.STRING
 });
 
+// Define a "Course" model
+
 var Course = sequelize.define('Course', {
-    courseId:{
+    courseId: {
         type: Sequelize.INTEGER,
-        primaryKey: true, 
-        autolncrement:true
+        primaryKey: true, // use "departmentId" as a primary key
+        autoIncrement: true // automatically increment the value
     },
     courseCode: Sequelize.STRING,
-    courseDescription: Sequelize.STRING,
+    courseDescription: Sequelize.STRING
 });
 
-//hasMany Relationship
-Course.hasMany(Student, {foreignKey: 'course'});
+// set up association between Student & Course
 
+Course.hasMany(Student, { foreignKey: 'course' });
 
 module.exports.initialize = function () {
-    return new Promise( (resolve, reject) => {
-        //Get data from database
-        sequelize.sync().then(()=>{
+    return new Promise(function (resolve, reject) {
+        sequelize.sync().then(() => {
             resolve();
         }).catch(() => {
-            reject("unable to sync the database");return;
+            reject("unable to sync the database"); return;
         });
     });
 }
 
-module.exports.getAllStudents = function(){
+module.exports.getAllStudents = function () {
     return new Promise(function (resolve, reject) {
-        Student.findAll().then((data) => {        
-             resolve(data)
-        }).catch(err => {
-            reject("no record returned"); return;
-        });
-    });
-}
-
-// module.exports.getTAs = function () {
-//     return new Promise(function (resolve, reject) {
-//         var filteredStudents = [];
-
-//         for (let i = 0; i < dataCollection.students.length; i++) {
-//             if (dataCollection.students[i].TA == true) {
-//                 filteredStudents.push(dataCollection.students[i]);
-//             }
-//         }
-
-//         if (filteredStudents.length == 0) {
-//             reject(); return; //removed "query returned 0 results"
-//         }
-
-//         resolve(); //removed filteredStudents
-//     });
-// };
-
-module.exports.getCourses = function(){
-   return new Promise((resolve,reject)=>{
-        Course.findAll().then(function(data){
+        Student.findAll().then(function (data) {
             resolve(data);
-        }).catch((err) =>{
+        }).catch((err) => {
             reject("no results returned"); return;
         });
     });
-};
+}
+
+module.exports.getCourses = function () {
+    return new Promise(function (resolve, reject) {
+        Course.findAll().then(function (data) {
+            resolve(data);
+        }).catch((err) => {
+            reject("query returned 0 results"); return;
+        });
+    });
+}
 
 module.exports.getStudentByNum = function (num) {
     return new Promise(function (resolve, reject) {
@@ -128,13 +103,14 @@ module.exports.getStudentsByCourse = function (course) {
 };
 
 
-module.exports.addStudent= function(studentData){
-    return new Promise((resolve, reject) => {
+module.exports.addStudent = function (studentData) {
+    return new Promise(function (resolve, reject) {
+
         studentData.TA = (studentData.TA) ? true : false;
 
-        for (var property in studentData) {
-            if (studentData[property] === '')
-            studentData[property] = null;
+        for (var prop in studentData) {
+            if (studentData[prop] === '')
+            studentData[prop] = null;
         }
 
         Student.create(studentData).then(() => {
@@ -161,9 +137,10 @@ module.exports.deleteStudentByNum = function(studentNum){
     });
 }
 
-module.exports.updateStudent= function(studentData){
-    return new Promise((resolve, reject) => {
- 
+module.exports.updateStudent = function (studentData) {
+
+    return new Promise(function (resolve, reject) {
+
         studentData.TA = (studentData.TA) ? true : false;
 
         for (var prop in studentData) {
@@ -181,12 +158,13 @@ module.exports.updateStudent= function(studentData){
     });
 
 };
+
 module.exports.addCourse = function (courseData) {
     return new Promise(function (resolve, reject) {
 
-        for (var property in courseData) {
-            if (courseData[property] === '')
-            courseData[property] = null;
+        for (var prop in courseData) {
+            if (courseData[prop] === '')
+            courseData[prop] = null;
         }
 
         Course.create(courseData).then(() => {
@@ -198,7 +176,27 @@ module.exports.addCourse = function (courseData) {
     });
 };
 
-module.exports.getCourseById = function (id) {
+module.exports.updateCourse = function (courseData) {
+
+    return new Promise(function (resolve, reject) {
+
+        for (var prop in courseData) {
+            if (courseData[prop] === '')
+            courseData[prop] = null;
+        }
+
+        Course.update(courseData, {
+            where: { courseId: courseData.courseId }
+        }).then(() => {
+            resolve();
+        }).catch((e) => {
+            reject("unable to update course"); return;
+        });
+    });
+
+};
+
+module.exports.getCourseById  = function(id){
     return new Promise(function (resolve, reject) {
         Course.findAll({
             where: {
@@ -214,25 +212,6 @@ module.exports.getCourseById = function (id) {
 
 
 
-module.exports.updateCourse = function (courseData) {
-
-    return new Promise(function (resolve, reject) {
-
-        for (var property in courseData) {
-            if (courseData[property] === '')
-            courseData[property] = null;
-        }
-
-        Course.update(courseData, {
-            where: { courseId: courseData.courseId }
-        }).then(() => {
-            resolve();
-        }).catch((e) => {
-            reject("unable to update course"); return;
-        });
-    });
-
-};
 
 module.exports.deleteCourseById = function(id){
     return new Promise(function (resolve, reject) {
