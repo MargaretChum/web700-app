@@ -30,6 +30,10 @@
             </p>
 
         </div>
-  
+         {{#unless courses}}
+        <div class="col-md-12 text-center">
+         <strong>{{message}}</strong>
+        </div>
+         {{/unless}}  
     </div>
 </html>

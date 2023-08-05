@@ -63,8 +63,7 @@ module.exports.initialize = function () {
 
 module.exports.getAllStudents = function(){
     return new Promise(function (resolve, reject) {
-        Student.findAll({ 
-        }).then((data) => {        
+        Student.findAll().then((data) => {        
              resolve(data)
         }).catch(err => {
             reject("no record returned"); return;

@@ -31,12 +31,16 @@
                 <td>{{addressStreet}},{{addressCity}},{{addressProvince}}</td>
                 <td>{{status}}</td>
                 <td><a href="/students?course={{course}}">{{course}}</a></td>
+                <td><a href="/student/delete/{{studentNum}}" class="btn btn-danger">remove</a></td>
               </tr>    
                   {{/each}}  
             </table>
-          </div>      
-          </p>
-
+          </div>  
+          {{#unless students}}
+          <div class="col-md-12 text-center">
+          <strong>{{message}}</strong>
+          </div>
+        {{/unless}}    
         </div>
     </div>
 </html>
