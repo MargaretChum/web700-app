@@ -84,7 +84,7 @@ app.get("/students/add", (req,res) => {
         res.render("addStudent", {courses: data});
      }).catch((err) => {
        // set course list to empty array
-       res.render("addEmployee", {courses: [] });
+       res.render("addCourse", {courses: [] });
     });
   
 });
