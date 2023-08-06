@@ -4,19 +4,18 @@
 *  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: ___Chum Sze Yin____ Student ID: __118496223___ Date: ___5 Aug 2023____
+*  Name: ___Chum Sze Yin____ Student ID: __118496223___ Date: ___6 Aug 2023____
 *
 *Online (Cyclic) Link: https://pleasant-hare-gaiters.cyclic.app/
 ********************************************************************************/ 
+const HTTP_PORT = process.env.PORT || 8080;
 const express = require("express");
+const app = express();
 const path = require("path");
 const exphbs = require("express-handlebars");
 const data = require("./modules/collegeData.js");
 
-const app = express();
-
-const HTTP_PORT = process.env.PORT || 8080;
-
+// add handlebars engine
 app.engine('.hbs', exphbs.engine({
     defaultLayout: 'main',
     extname: '.hbs',
@@ -43,6 +42,7 @@ app.set('view engine', '.hbs');
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+//Fix Navigation Bar to show correct "active" item
 app.use(function (req, res, next) {
     let route = req.baseUrl + req.path;
     app.locals.activeRoute = (route == "/") ? "/" : route.replace(/\/$/, "");
@@ -83,7 +83,7 @@ app.get("/students/add", (req,res) => {
         res.render("addStudent", {courses: data});
      }).catch((err) => {
        // set course list to empty array
-       res.render("addEmployee", {courses: [] });
+       res.render("addCourse", {courses: [] });
     });
   
 });
@@ -97,24 +97,20 @@ app.post("/students/add", (req, res) => {
 
 app.get("/student/:studentNum", (req, res) => {
 
-    // initialize an empty object to store the values
     let viewData = {};
 
     data.getStudentByNum(req.params.studentNum).then((data) => {
         if (data) {
-            viewData.student = data; //store student data in the "viewData" object as "student"
+            viewData.student = data; 
         } else {
-            viewData.student = null; // set student to null if none were returned
+            viewData.student = null; 
         }
     }).catch((err) => {
-        viewData.student = null; // set student to null if there was an error 
+        viewData.student = null;
     }).then(data.getCourses)
     .then((data) => {
-        viewData.courses = data; // store course data in the "viewData" object as "courses"
+        viewData.courses = data; 
 
-        // loop through viewData.courses and once we have found the courseId that matches
-        // the student's "course" value, add a "selected" property to the matching 
-        // viewData.courses object
 
         for (let i = 0; i < viewData.courses.length; i++) {
             if (viewData.courses[i].courseId == viewData.student.course) {
@@ -123,9 +119,9 @@ app.get("/student/:studentNum", (req, res) => {
         }
 
     }).catch(() => {
-        viewData.courses = []; // set courses to empty if there was an error
+        viewData.courses = []; 
     }).then(() => {
-        if (viewData.student == null) { // if no student - return an error
+        if (viewData.student == null) { 
             res.status(404).send("Student Not Found");
         } else {
             res.render("student", { viewData: viewData }); // render the "student" view

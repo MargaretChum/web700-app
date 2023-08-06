@@ -18,13 +18,13 @@ sequelize
         console.log('Unable to connect to the database:', err);
     });
 
-// Define a "Student" model (http://docs.sequelizejs.com/variable/index.html#static-variable-DataTypes)
+// Define a model
 
 var Student = sequelize.define('Student', {
     studentNum: {
         type: Sequelize.INTEGER,
-        primaryKey: true, // use "studentNum" as a primary key
-        autoIncrement: true // automatically increment the value
+        primaryKey: true, 
+        autoIncrement: true 
     },
     
     firstName: Sequelize.STRING,
@@ -37,19 +37,17 @@ var Student = sequelize.define('Student', {
     status: Sequelize.STRING
 });
 
-// Define a "Course" model
 
 var Course = sequelize.define('Course', {
     courseId: {
         type: Sequelize.INTEGER,
-        primaryKey: true, // use "departmentId" as a primary key
-        autoIncrement: true // automatically increment the value
+        primaryKey: true, 
+        autoIncrement: true 
     },
     courseCode: Sequelize.STRING,
     courseDescription: Sequelize.STRING
 });
 
-// set up association between Student & Course
 
 Course.hasMany(Student, { foreignKey: 'course' });
 
