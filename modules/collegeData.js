@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-var sequelize = new Sequelize('xxuyvjza', 'xxuyvjza', '9xUS37hmdXWqUU0VW9CtbYnKQ5qqFnC4', {
+var sequelize = new Sequelize('xxuyvjza','xxuyvjza','9xUS37hmdXWqUU0VW9CtbYnKQ5qqFnC4', {
     host: 'stampy.db.elephantsql.com',
     dialect: 'postgres',
     port: 5432,
@@ -8,6 +8,15 @@ var sequelize = new Sequelize('xxuyvjza', 'xxuyvjza', '9xUS37hmdXWqUU0VW9CtbYnKQ
     },
     query:{raw:true}
 });
+
+sequelize
+    .authenticate()
+    .then(function() {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(function(err) {
+        console.log('Unable to connect to the database:', err);
+    });
 
 // Define a "Student" model (http://docs.sequelizejs.com/variable/index.html#static-variable-DataTypes)
 
