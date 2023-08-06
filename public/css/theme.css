@@ -112,13 +112,13 @@ tfoot tr{
   text-align: center;
 }
 
-#students_table tr:last-child td:first-child{
+/* #students_table tr:last-child td:first-child{
   border-bottom-left-radius:2em;
 }
 
 #students_table tr:last-child td:last-child{
   border-bottom-right-radius:2em;
-}
+} */
 
 td[colspan]{
   text-align: right;
