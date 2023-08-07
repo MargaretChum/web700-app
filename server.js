@@ -42,26 +42,29 @@ app.set('view engine', '.hbs');
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-//Fix Navigation Bar to show correct "active" item
+
 app.use(function (req, res, next) {
     let route = req.baseUrl + req.path;
     app.locals.activeRoute = (route == "/") ? "/" : route.replace(/\/$/, "");
     next();
 });
 
-
+//http://localhost:8080 -- Return home.html
 app.get("/", (req, res) => {
     res.render("home");
 });
 
+//http://localhost:8080/about -- Return abouthtml
 app.get("/about", (req, res) => {
     res.render("about");
 });
 
+//http://localhost:8080/htmlDemo -- Return htmlDemo.html
 app.get("/htmlDemo", (req, res) => {
     res.render("htmlDemo");
 });
 
+//http://localhost:8080/students?course=value
 app.get("/students", (req, res) => {
     if (req.query.course) {
         data.getStudentsByCourse(req.query.course).then((data) => {
@@ -78,6 +81,7 @@ app.get("/students", (req, res) => {
     }
 });
 
+//http://localhost:8080/students/add
 app.get("/students/add", (req,res) => {
     data.getCourses().then((data)=>{
         res.render("addStudent", {courses: data});
@@ -88,13 +92,14 @@ app.get("/students/add", (req,res) => {
   
 });
 
-
+//add "Post route" for /students/add
 app.post("/students/add", (req, res) => {
     data.addStudent(req.body).then(() => {
         res.redirect("/students");
     });
 });
 
+//http://localhost:8080/student/number
 app.get("/student/:studentNum", (req, res) => {
 
     let viewData = {};
@@ -136,6 +141,7 @@ app.post("/student/update", (req, res) => {
     });
 });
 
+//http://localhost:8080/student/delete/number
 app.get("/student/delete/:studentNum", (req,res)=>{
     data.deleteStudentByNum(req.params.studentNum).then(()=>{
       res.redirect("/students");
@@ -144,6 +150,7 @@ app.get("/student/delete/:studentNum", (req,res)=>{
     });
   });
 
+//http://localhost:8080/courses
 app.get("/courses", (req, res) => {
     data.getCourses().then((data) => {
         (data.length > 0) ? res.render("courses", { courses: data }) : res.render("courses", { message: "no results" });
@@ -152,6 +159,7 @@ app.get("/courses", (req, res) => {
     });
 });
 
+//http://localhost:8080/courses/add
 app.get("/courses/add", (req, res) => {
     res.render("addCourse");
 });
@@ -168,7 +176,7 @@ app.post("/courses/add", (req, res) => {
     });
   });
 
-
+//http://localhost:8080/course/id
 app.get("/course/:id", (req, res) => {
     data.getCourseById(req.params.id).then((data) => {
         (data) ? res.render("course", { course: data }) : res.status(404).send("Course Not Found");
@@ -177,6 +185,7 @@ app.get("/course/:id", (req, res) => {
     });
 });
 
+//http://localhost:8080/course/delete/id
 app.get("/course/delete/:id", (req,res)=>{
     data.deleteCourseById(req.params.id).then(()=>{
       res.redirect("/courses");
